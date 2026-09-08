@@ -26,8 +26,7 @@ jobs:
     - name: Run Playwright tests with Qase reporting
       run: npm run test:qase
       env:
-        QASE_MODE: report
-        QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+        QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
         
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
