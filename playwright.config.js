@@ -27,7 +27,7 @@ export default defineConfig({
       testops: {
         project: 'VI',
         api: {
-          token: process.env.QASE_TESTOPS_API_TOKEN,
+          token: process.env.QASE_API_TOKEN,
         },
       },
     },
