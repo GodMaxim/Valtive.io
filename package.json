@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test tests/test.spec.js",
-    "test:qase": "cross-env QASE_MODE=report playwright test tests/test.spec.js"
+    "test:qase": "cross-env QASE_MODE=testops playwright test tests/test.spec.js"
   },
   "keywords": [],
   "author": "",
