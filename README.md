@@ -8,6 +8,7 @@ An end-to-end automated testing framework built with Playwright and JavaScript, 
 - Resilience Strategy: Network routing (page.route) and dynamic DOM injection to bypass third-party (Calendly) widget restrictions.
 
 ## Project Structure
+```text
 Valtive/
 ├── page/
 │   ├── BookingPage.js     # Handles Calendly API mocking and success screen forcing
@@ -19,6 +20,7 @@ Valtive/
 ├── playwright.config.js   # Playwright configuration file
 ├── qase.config.json       # Qase TMS integration settings
 └── README.md              # Project documentation
+```
 
 ## Dependencies & Libraries
 The project relies on the following key npm packages (defined in package.json):
