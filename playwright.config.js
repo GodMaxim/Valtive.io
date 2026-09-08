@@ -20,6 +20,18 @@ export default defineConfig({
   workers: process.env.CI ? 1 : 1,
    reporter: [
     ['html'],
+    [
+      'playwright-qase-reporter',
+      {
+      mode: 'testops',
+      testops: {
+        project: 'VI',
+        api: {
+          token: process.env.QASE_TESTOPS_API_TOKEN,
+        },
+      },
+    },
+    ],
   ],
   use: {
     headless: true,
