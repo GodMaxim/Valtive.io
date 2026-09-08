@@ -1,0 +1,36 @@
+{
+    "title": "Test run",
+    "execution": {
+        "start_time": 1788897229.782,
+        "end_time": 1788897229.864,
+        "duration": 82,
+        "cumulative_duration": 0
+    },
+    "stats": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0,
+        "blocked": 0,
+        "invalid": 0,
+        "muted": 0
+    },
+    "results": [],
+    "threads": [],
+    "suites": [],
+    "environment": "",
+    "host_data": {
+        "system": "windows",
+        "machineName": "DESKTOP-T6OBM48",
+        "release": "10.0.19045",
+        "version": "Microsoft Windows [Version 10.0.19045.6466]",
+        "arch": "x64",
+        "language": "v24.15.0",
+        "packageManager": "11.12.1",
+        "framework": "1.62.1",
+        "reporter": "2.7.0",
+        "commons": "2.9.2",
+        "apiClientV1": "1.1.15",
+        "apiClientV2": "1.0.11"
+    }
+}

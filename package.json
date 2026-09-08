@@ -1,0 +1,24 @@
+{
+  "name": "valtive",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test tests/test.spec.js",
+    "test:qase": "cross-env QASE_MODE=report playwright test tests/test.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.4.1",
+    "cross-env": "^10.1.0",
+    "playwright-qase-reporter": "^2.7.0"
+  },
+  "dependencies": {
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}
