@@ -37,6 +37,9 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     locale: 'en-US',
+    storageState: undefined,
+    permissions: ['geolocation'],
+    bypassCSP: true,
     launchOptions: {
         args: [
          '--disable-blink-features=AutomationControlled',
