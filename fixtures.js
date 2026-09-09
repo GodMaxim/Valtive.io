@@ -1,7 +1,7 @@
 import { test as base } from '@playwright/test'
 import { HomePage } from './page/HomePage.js'
 import { ContactUsPage } from './page/ContactUsPage.js'
-import { chromium } from 'playwright-extra';
+
 
 import { BookingPage } from './page/BookingPage.js'
 
@@ -15,18 +15,6 @@ export const test = base.extend({
 
         await context.addInitScript(() => {
             Object.defineProperty(navigator, 'webdriver', { get: () => false });
-        });
-
-        await context.route('**/submit**', async (route) => {
-            if (route.request().method() === 'POST') {
-                await route.fulfill({
-                    status: 200,
-                    contentType: 'application/json',
-                    body: JSON.stringify({ success: true })
-                });
-            } else {
-                await route.continue();
-            }
         });
 
         await use(context);

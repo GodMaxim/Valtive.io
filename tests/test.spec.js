@@ -5,7 +5,6 @@ import { bookingScenarios } from '../utils/bookingData.js'
 bookingScenarios.forEach((scenario) => {
 
     test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
-        await new Promise(r => setTimeout(r, 4000));
         await page.goto('https://valtive.io/contact-valtive/', { waitUntil: 'domcontentloaded' });
        
         await contactUsPage.selectAvailableDay()
