@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures.js'
 import { qase } from 'playwright-qase-reporter'
 import { bookingScenarios } from '../utils/bookingData.js'
 
-for (const scenario of bookingScenarios) {
+bookingScenarios.forEach((scenario) => {
 
     test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
         await bookingPage.mockSlotBooking();
@@ -18,6 +18,8 @@ for (const scenario of bookingScenarios) {
 
         await expect(contactUsPage.scheduledTitle).toBeVisible({ timeout: 5000 });
         await expect(contactUsPage.invitationMessage).toBeVisible({ timeout: 5000 });
+    
     }
     )}
+)
     
