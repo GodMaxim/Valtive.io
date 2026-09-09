@@ -8,7 +8,7 @@ import { BookingPage } from './page/BookingPage.js'
 
 chromium.use(stealthPlugin())
 export const test = base.extend({
-    browser: async ({}, use) => {
+    browser: [async ({}, use) => {
         const browser = await chromium.launch({
             headless: true,
             args: [
@@ -23,7 +23,7 @@ export const test = base.extend({
         })
         await use(browser);
         await browser.close();
-    },
+    }, { scope: 'worker' }],
         context: async ({ browser }, use) => {
             const context = await browser.newContext({
             userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
