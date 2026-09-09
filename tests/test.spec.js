@@ -5,20 +5,19 @@ import { bookingScenarios } from '../utils/bookingData.js'
 bookingScenarios.forEach((scenario) => {
 
     test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
-        await new Promise(r => setTimeout(r, 3000));
+        await new Promise(r => setTimeout(r, 2000));
         await bookingPage.mockSlotBooking();
         await page.goto('https://valtive.io/contact-valtive/', { 
-            waitUntil: 'commit',
-            timeout: 30000
+            waitUntil: 'domcontentloaded',
+            timeout: 45000
         });
-        await page.waitForSelector('iframe', { timeout: 15000 }).catch(() => {});
        
         await contactUsPage.selectAvailableDay()
         await expect(contactUsPage.nextBtn).toBeEnabled()
         await contactUsPage.clickNextBtn()
         await contactUsPage.waitForForm()
         await contactUsPage.fillBookingForm(scenario.name, scenario.email)
-
+        
         await bookingPage.forceSuccessScreen()
 
         await expect(contactUsPage.scheduledTitle).toBeVisible({ timeout: 5000 });
