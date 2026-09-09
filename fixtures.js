@@ -2,10 +2,9 @@ import { test as base } from '@playwright/test'
 import { HomePage } from './page/HomePage.js'
 import { ContactUsPage } from './page/ContactUsPage.js'
 import { chromium } from 'playwright-extra';
-import stealthPlugin from 'puppeteer-extra-plugin-stealth'
+
 import { BookingPage } from './page/BookingPage.js'
 
-chromium.use(stealthPlugin())
 
 export const test = base.extend({
     context: async ({ browser }, use) => {
@@ -18,9 +17,17 @@ export const test = base.extend({
             Object.defineProperty(navigator, 'webdriver', { get: () => false });
         });
 
-        await context.route('**/translate.googleapis.com/**', route => route.abort());
-        await context.route('**/translate.google.com/**', route => route.abort());
-        await context.route('**/*translate_a*', route => route.abort());
+        await context.route('**/submit**', async (route) => {
+            if (route.request().method() === 'POST') {
+                await route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ success: true })
+                });
+            } else {
+                await route.continue();
+            }
+        });
 
         await use(context);
         await context.close();
@@ -38,3 +45,6 @@ export const test = base.extend({
         await use(new BookingPage(page));
     }
 });
+
+export { expect } from '@playwright/test';
+

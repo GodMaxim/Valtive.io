@@ -18,15 +18,21 @@ export class ContactUsPage{
     }
 
    async selectAvailableDay(targetIndex = 0) {
-
+    const calendlyFrame = this.page.frameLocator('iframe[src*="calendly.com"]');
+    
     try {
-        await this.availableDays.first().waitFor({ state: 'visible', timeout: 15000 });
+        await this.availableDays.first().waitFor({ state: 'visible', timeout: 20000 });
     } catch (e) {
         if (await this.nextMonthBtn.isVisible().catch(() => false)) {
             await this.nextMonthBtn.click();
             await this.availableDays.first().waitFor({ state: 'visible', timeout: 15000 });
         } else {
-            throw new Error('Calendar failed to load or no available days found.');
+            await this.page.waitForLoadState('networkidle');
+            try {
+                await this.availableDays.first().waitFor({ state: 'visible', timeout: 10000 });
+            } catch (innerError) {
+                throw new Error('Calendar failed to load or no available days found after retry.');
+            }
         }
     }
 
