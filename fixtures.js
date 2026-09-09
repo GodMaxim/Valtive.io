@@ -18,7 +18,8 @@ export const test = base.extend({
                 "--disable-translate",
                 "--disable-features=Translate",
                 "--no-default-browser-check",
-                "--lang=en-US"
+                "--lang=en-US",
+                '--single-process'
             ]
         })
         await use(browser);
