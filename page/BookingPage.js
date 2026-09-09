@@ -3,7 +3,7 @@ export class BookingPage {
         this.page = page;
     }
 
-    async mockSlotBooking() {
+   async mockSlotBooking() {
         await this.page.route('**/submit**', async (route) => {
             if (route.request().method() === 'POST') {
                 await route.fulfill({

@@ -3,7 +3,7 @@
   "debug": false,
   "testops": {
     "api": {
-      "token": "5b8c4d2898ae28089d765924f3677076f89002ed8270c2c0d0b1cc8bb4ed2bed"
+      "token": ""
     },
     "project": "VI",
     "run": {

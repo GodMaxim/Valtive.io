@@ -1,14 +1,18 @@
 import { test, expect } from '../fixtures.js'
-import { qase } from 'playwright-qase-reporter';
+import { qase } from 'playwright-qase-reporter'
+import { bookingScenarios } from '../utils/bookingData.js'
 
-for (let i = 1; i <= 40; i++) {
+for (const scenario of bookingScenarios) {
 
-    test(qase(1, `Successfully book slot ${i}`), async ({ page, bookingPage, contactUsPage }) => {
+    test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
         await bookingPage.mockSlotBooking();
         await page.goto('https://valtive.io/contact-valtive/');
-
-        await contactUsPage.selectAvailableDay();
-        await contactUsPage.fillBookingForm(`User Test ${i}`, `test.user.${i}@valtive.qa`);
+       
+        await contactUsPage.selectAvailableDay()
+        await expect(contactUsPage.nextBtn).toBeEnabled()
+        await contactUsPage.clickNextBtn()
+        await contactUsPage.waitForForm()
+        await contactUsPage.fillBookingForm(scenario.name, scenario.email);
 
         await bookingPage.forceSuccessScreen();
 

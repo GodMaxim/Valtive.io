@@ -30,6 +30,10 @@ export const test = base.extend({
             viewport: { width: 1366, height: 768 }
         })
 
+        await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => false });
+});
+
         await context.route('**/translate.googleapis.com/**', route => route.abort())
         await context.route('**/translate.google.com/**', route => route.abort())
         await context.route('**/*translate_a*', route => route.abort())

@@ -1,11 +1,10 @@
-import { test, expect } from '../fixtures.js';
 export class ContactUsPage{
 
     constructor(page) {
         this.page = page
         this.calendly = page.frameLocator('iframe[src*="calendly.com"]');
         this.calendarTable = this.calendly.locator('[data-testid="calendar-table"]');
-        this.availableDays = page.frameLocator('iframe[src*="calendly.com"]').locator('button.booking-kit_button-bookable_80ba95eb');
+        this.availableDays = page.frameLocator('iframe[src*="calendly.com"]').locator('[data-testid="calendar-table"] button[aria-label*="Times available"]');
         this.spotList = this.calendly.locator('[data-component="spot-list"]');
         this.nextBtn = this.calendly.getByRole('button', { name: 'Next' });
         this.meetingTitle = this.calendly.getByText('30 Minute Meeting');
@@ -18,46 +17,44 @@ export class ContactUsPage{
         this.nextMonthBtn = this.calendly.locator('button[aria-label="Go to next month"]');
     }
 
-    async waitForAvailability() {
-        await this.calendarContainer.waitFor({ state: 'visible', timeout: 15000 })
+   async selectAvailableDay(targetIndex = 0) {
+    // 1. Обязательно ждем появления первого доступного дня при открытии календаря
+    try {
         await this.availableDays.first().waitFor({ state: 'visible', timeout: 15000 });
+    } catch (e) {
+        // Если в текущем месяце дни не появились, пробуем переключить на следующий
+        if (await this.nextMonthBtn.isVisible().catch(() => false)) {
+            await this.nextMonthBtn.click();
+            await this.availableDays.first().waitFor({ state: 'visible', timeout: 15000 });
+        } else {
+            throw new Error('Calendar failed to load or no available days found.');
+        }
     }
 
-    async selectAvailableDay(targetIndex = 0) {
-        try {
-            await this.availableDays.first().waitFor({ state: 'visible', timeout: 10000 });
-        } catch (e) {
-        }
-        let availableDaysCount = await this.availableDays.count()
-        if (availableDaysCount === 0) {
-            if (await this.nextMonthBtn.isVisible().catch(() => false)) {
-                await this.nextMonthBtn.click()
-                await this.availableDays.first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {})
-                availableDaysCount = await this.availableDays.count();
-            }   
-        }
-        
-        if (availableDaysCount > 0) {
-            const indexToClick = targetIndex < availableDaysCount ? targetIndex : 0;
-            await this.availableDays.nth(indexToClick).click();
-            } else {
-        throw new Error('No available days found in the calendar even after switching month.')
-        }
-        const timeSlot = this.spotList.locator('button, [data-container="time-slot"]').first();
-        await timeSlot.waitFor({ state: 'visible', timeout: 10000 });
-        await timeSlot.click();
-        await this.nextBtn.waitFor({ state: 'visible', timeout: 10000 });
-        await expect(this.nextBtn).toBeEnabled();
-        await this.nextBtn.click({ force: true })
-        try {
-            await this.nextBtn.waitFor({ state: 'hidden', timeout: 5000 });
-        } catch (e) {
-            console.log('Warning: "Next" button is still visible, the step might not have changed.');
-        }
+    let availableDaysCount = await this.availableDays.count();
+    
+    if (availableDaysCount > 0) {
+        const indexToClick = targetIndex < availableDaysCount ? targetIndex : 0;
+        await this.availableDays.nth(indexToClick).click();
+    } else {
+        throw new Error('No available days found in the calendar even after switching month.');
+    }
 
+    const timeSlot = this.spotList.locator('button, [data-container="time-slot"]').first();
+    await timeSlot.waitFor({ state: 'visible', timeout: 10000 });
+    await timeSlot.click();
+}
+
+    async waitForForm() {
         const anyInput = this.calendly.locator('input').first();
         await anyInput.waitFor({ state: 'visible', timeout: 20000 });
         await this.nameInput.waitFor({ state: 'visible', timeout: 30000 });
+    }
+
+    async clickNextBtn() {
+        await this.nextBtn.waitFor({ state: 'visible', timeout: 10000 });
+        await this.nextBtn.click()
+
     }
 
     async fillBookingForm(name, email) {
