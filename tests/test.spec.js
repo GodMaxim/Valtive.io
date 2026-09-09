@@ -5,13 +5,13 @@ import { bookingScenarios } from '../utils/bookingData.js'
 bookingScenarios.forEach((scenario) => {
 
     test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
-        await new Promise(r => setTimeout(r, 1500));
+        await new Promise(r => setTimeout(r, 3000));
         await bookingPage.mockSlotBooking();
         await page.goto('https://valtive.io/contact-valtive/', { 
-            waitUntil: 'domcontentloaded', 
-            timeout: 60000 
+            waitUntil: 'commit',
+            timeout: 30000
         });
-        await page.waitForLoadState('networkidle').catch(() => {});
+        await page.waitForSelector('iframe', { timeout: 15000 }).catch(() => {});
        
         await contactUsPage.selectAvailableDay()
         await expect(contactUsPage.nextBtn).toBeEnabled()
@@ -26,4 +26,3 @@ bookingScenarios.forEach((scenario) => {
     }
     )}
 )
-    
