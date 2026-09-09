@@ -18,11 +18,10 @@ export class ContactUsPage{
     }
 
    async selectAvailableDay(targetIndex = 0) {
-    // 1. Обязательно ждем появления первого доступного дня при открытии календаря
+
     try {
         await this.availableDays.first().waitFor({ state: 'visible', timeout: 15000 });
     } catch (e) {
-        // Если в текущем месяце дни не появились, пробуем переключить на следующий
         if (await this.nextMonthBtn.isVisible().catch(() => false)) {
             await this.nextMonthBtn.click();
             await this.availableDays.first().waitFor({ state: 'visible', timeout: 15000 });
