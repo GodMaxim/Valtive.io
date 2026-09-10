@@ -43,7 +43,7 @@ jobs:
 
     - name: Run tests batch 3 (11-15)
       run: |
-        sleep5
+        sleep 5
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(11|12|13|14|15)(?!\\d)"
