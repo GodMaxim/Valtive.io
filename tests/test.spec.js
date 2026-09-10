@@ -10,7 +10,7 @@ bookingScenarios.forEach((scenario) => {
         await homePage.goToContactUsPage()
 
         const iframeElement = page.locator('iframe[src*="calendly.com"]');
-        await iframeElement.waitFor({ state: 'visible', timeout: 20000 });
+        await iframeElement.waitFor({ state: 'visible', timeout: 25000 });
        
         await contactUsPage.selectAvailableDay()
         await expect(contactUsPage.nextBtn).toBeEnabled()

@@ -41,7 +41,9 @@ export class ContactUsPage{
     
     if (availableDaysCount > 0) {
         const indexToClick = targetIndex < availableDaysCount ? targetIndex : 0;
-        await this.availableDays.nth(indexToClick).click();
+       const targetDay = this.availableDays.nth(indexToClick);
+        await targetDay.scrollIntoViewIfNeeded();
+        await targetDay.click();
     } else {
         throw new Error('No available days found in the calendar even after switching month.');
     }
