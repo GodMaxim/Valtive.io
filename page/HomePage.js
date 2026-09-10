@@ -6,9 +6,18 @@ export class HomePage {
     }
 
     async goToContactUsPage() {
+        await this.page.route('**/*', (route) => {
+            const url = route.request().url();
+            if (url.includes('google-analytics') || url.includes('hotjar') || url.includes('facebook')) {
+                return route.abort();
+            }
+            return route.continue();
+        });
+
+        await this.page.waitForTimeout(3000);
         await this.page.goto('https://valtive.io/contact-valtive/', { 
             waitUntil: 'domcontentloaded',
-            timeout: 60000 
+            timeout: 45000 
         });
         await this.contactUsButton.waitFor({ state: 'visible', timeout: 15000 })
     }
