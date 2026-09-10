@@ -33,6 +33,8 @@ export default defineConfig({
     ],
   ],
   use: {
+    actionTimeout: 15000,
+    navigationTimeout: 30000,
     headless: true,
     trace: 'off',
     screenshot: 'only-on-failure',
