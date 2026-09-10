@@ -7,6 +7,7 @@ export class HomePage {
 
     async goToContactUsPage() {
         await this.page.goto('https://valtive.io/', { waitUntil: 'domcontentloaded' });
+        await this.contactUsButton.waitFor({ state: 'visible', timeout: 15000 });
         await this.contactUsButton.click()
     }
 }
