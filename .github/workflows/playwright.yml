@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 90
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -23,34 +23,73 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium
 
-    - name: Run tests batch 1 (1-10)
+    - name: Run tests batch 1 (1-5)
       run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
       env:
-        GREP_PATTERN: "scenario #(1|2|3|4|5|6|7|8|9|10)(?!\\d)"
+        GREP_PATTERN: "scenario #(1|2|3|4|5)(?!\\d)"
         QASE_MODE: testops
         QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
         QASE_TESTOPS_RUN_COMPLETE: "false"
 
-    - name: Run tests batch 2 (11-20)
+    - name: Run tests batch 2 (6-10)
       run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
       env:
-        GREP_PATTERN: "scenario #(11|12|13|14|15|16|17|18|19|20)(?!\\d)"
+        GREP_PATTERN: "scenario #(6|7|8|9|10)(?!\\d)"
         QASE_MODE: testops
         QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
         QASE_TESTOPS_RUN_COMPLETE: "false"
 
-    - name: Run tests batch 3 (21-30)
+    - name: Run tests batch 3 (11-15)
       run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
       env:
-        GREP_PATTERN: "scenario #(21|22|23|24|25|26|27|28|29|30)(?!\\d)"
+        GREP_PATTERN: "scenario #(11|12|13|14|15)(?!\\d)"
         QASE_MODE: testops
         QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
         QASE_TESTOPS_RUN_COMPLETE: "false"
 
-    - name: Run tests batch 4 (31-40)
+    - name: Run tests batch 4 (16-20)
       run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
       env:
-        GREP_PATTERN: "scenario #(31|32|33|34|35|36|37|38|39|40)(?!\\d)"
+        GREP_PATTERN: "scenario #(16|17|18|19|20)(?!\\d)"
+        QASE_MODE: testops
+        QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
+        QASE_TESTOPS_RUN_COMPLETE: "false"
+
+    - name: Run tests batch 5 (21-25)
+      run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
+      env:
+        GREP_PATTERN: "scenario #(21|22|23|24|25)(?!\\d)"
+        QASE_MODE: testops
+        QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
+        QASE_TESTOPS_RUN_COMPLETE: "false"
+
+    - name: Run tests batch 6 (26-30)
+      run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
+      env:
+        GREP_PATTERN: "scenario #(26|27|28|29|30)(?!\\d)"
+        QASE_MODE: testops
+        QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
+        QASE_TESTOPS_RUN_COMPLETE: "false"
+
+    - name: Run tests batch 7 (31-35)
+      run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
+      env:
+        GREP_PATTERN: "scenario #(31|32|33|34|35)(?!\\d)"
+        QASE_MODE: testops
+        QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
+        QASE_TESTOPS_RUN_COMPLETE: "false"
+
+    - name: Run tests batch 8 (36-40)
+      run: npx playwright test tests/test.spec.js --grep "$GREP_PATTERN"
+      env:
+        GREP_PATTERN: "scenario #(36|37|38|39|40)(?!\\d)"
         QASE_MODE: testops
         QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
         QASE_TESTOPS_RUN_COMPLETE: "true"
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
