@@ -33,7 +33,7 @@ jobs:
 
     - name: Run tests batch 2 (6-10)
       run: |
-        sleep 5
+        sleep 20
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(6|7|8|9|10)(?!\\d)"
@@ -43,7 +43,7 @@ jobs:
 
     - name: Run tests batch 3 (11-15)
       run: |
-        sleep 5
+        sleep 15
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(11|12|13|14|15)(?!\\d)"
@@ -53,7 +53,7 @@ jobs:
 
     - name: Run tests batch 4 (16-20)
       run: |
-        sleep 5
+        sleep 15
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(16|17|18|19|20)(?!\\d)"
@@ -63,7 +63,7 @@ jobs:
 
     - name: Run tests batch 5 (21-25)
       run: |
-        sleep 5
+        sleep 10
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(21|22|23|24|25)(?!\\d)"
@@ -73,7 +73,7 @@ jobs:
 
     - name: Run tests batch 6 (26-30)
       run: |
-        sleep 5
+        sleep 10
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(26|27|28|29|30)(?!\\d)"
@@ -83,7 +83,7 @@ jobs:
 
     - name: Run tests batch 7 (31-35)
       run: |
-        sleep 5
+        sleep 10
         npx playwright test tests/test.spec.js --grep "$GREP_PATTERN" --workers=1
       env:
         GREP_PATTERN: "scenario #(31|32|33|34|35)(?!\\d)"

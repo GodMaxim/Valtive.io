@@ -6,12 +6,13 @@ import { bookingScenarios } from '../utils/bookingData.js'
 bookingScenarios.forEach((scenario) => {
 
     test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
-        await page.waitForTimeout(2000)
+        await page.waitForTimeout(3000 + Math.random() * 2000);
 
         await page.goto('https://valtive.io/contact-valtive/', { 
             waitUntil: 'load', 
             timeout: 60000 
         });
+        await page.locator('header, main').first().waitFor({ state: 'attached', timeout: 30000 });
 
         const iframeElement = page.locator('iframe[src*="calendly.com"]');
         await iframeElement.waitFor({ state: 'attached', timeout: 30000 });
