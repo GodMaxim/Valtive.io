@@ -1,8 +1,6 @@
 import { test as base } from '@playwright/test'
 import { HomePage } from './page/HomePage.js'
 import { ContactUsPage } from './page/ContactUsPage.js'
-
-
 import { BookingPage } from './page/BookingPage.js'
 
 
