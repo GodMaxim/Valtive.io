@@ -18,6 +18,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 0 : 0,
   workers: 1,
+   maxFailures: undefined,
    reporter: [
     ['html'],
     [
@@ -33,9 +34,9 @@ export default defineConfig({
   ],
   use: {
     headless: true,
-    trace: 'retain-on-failure',
+    trace: 'off',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'off',
     locale: 'en-US',
     storageState: undefined,
     permissions: ['geolocation'],
