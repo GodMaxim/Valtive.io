@@ -15,6 +15,7 @@ export const test = base.extend({
                 '--disable-dev-shm-usage',
             ]
         });
+
         await use(browser);
         await browser.close();
     },
@@ -28,6 +29,14 @@ export const test = base.extend({
         await context.addInitScript(() => {
             Object.defineProperty(navigator, 'webdriver', { get: () => false });
         });
+
+        await context.route('**/*', (route) => {
+            const url = route.request().url();
+            if (url.includes('google-analytics') || url.includes('hotjar') || url.includes('facebook')) {
+                return route.abort();
+            }
+            return route.continue();
+        })
 
         await use(context);
         await context.close();

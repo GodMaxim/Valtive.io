@@ -5,25 +5,13 @@ import { bookingScenarios } from '../utils/bookingData.js'
 
 bookingScenarios.forEach((scenario) => {
 
-    test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage, homePage }) => {
-        await page.waitForTimeout(4000)
+    test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
+        await page.waitForTimeout(2000)
 
-        await page.route('**/*', (route) => {
-            const url = route.request().url();
-            if (url.includes('google-analytics') || url.includes('hotjar') || url.includes('facebook')) {
-                return route.abort();
-            }
-            return route.continue();
+        await page.goto('https://valtive.io/contact-valtive/', { 
+            waitUntil: 'commit', 
+            timeout: 30000 
         });
-
-        await page.goto('https://valtive.io/', {
-            waitUntil: 'domcontentloaded', 
-            timeout: 45000
-        })
-
-        await expect(homePage.title).toBeVisible()
-
-        await homePage.goToContactUsPage()
 
         const iframeElement = page.locator('iframe[src*="calendly.com"]');
         await iframeElement.waitFor({ state: 'visible', timeout: 25000 });
