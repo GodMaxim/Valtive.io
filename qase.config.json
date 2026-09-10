@@ -7,7 +7,7 @@
     },
     "project": "VI",
     "run": {
-      "complete": true
+      "complete": false
     }
   }
 }
