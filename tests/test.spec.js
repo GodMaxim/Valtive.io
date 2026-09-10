@@ -9,7 +9,7 @@ bookingScenarios.forEach((scenario) => {
         await page.waitForTimeout(3000 + Math.random() * 2000);
 
         await page.goto('https://valtive.io/contact-valtive/', { 
-            waitUntil: 'load', 
+            waitUntil: 'domcontentloaded', 
             timeout: 60000 
         });
         await page.locator('header, main').first().waitFor({ state: 'attached', timeout: 30000 });
