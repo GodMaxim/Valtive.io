@@ -4,7 +4,7 @@ import { bookingScenarios } from '../utils/bookingData.js'
 
 test.describe.configure({ retries: 3 })
 
-ъbookingScenarios.forEach((scenario) => {
+bookingScenarios.forEach((scenario) => {
 
     test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
         await page.goto('https://valtive.io/contact-valtive/', { waitUntil: 'domcontentloaded' });
