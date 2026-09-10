@@ -10,6 +10,10 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
     - uses: actions/checkout@v4
     
@@ -23,8 +27,8 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps chromium
       
-    - name: Run Playwright tests with Qase reporting
-      run: npm run test:qase
+    - name: Run Playwright tests (shard ${{ matrix.shard }}/4)
+      run: npx playwright test --shard=${{ matrix.shard }}/4
       env:
         QASE_MODE: testops
         QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TESTOPS_API_TOKEN }}
