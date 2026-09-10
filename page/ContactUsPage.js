@@ -18,10 +18,6 @@ export class ContactUsPage{
     }
 
    async selectAvailableDay(targetIndex = 0) {
-    const preloader = this.page.locator('.preloader');
-        if (await preloader.isVisible()) {
-            await preloader.waitFor({ state: 'hidden', timeout: 15000 });
-        }
     await this.page.locator('iframe[src*="calendly.com"]').waitFor({ state: 'visible', timeout: 30000 });
     await this.page.waitForTimeout(3000)
     
@@ -47,7 +43,7 @@ export class ContactUsPage{
         const indexToClick = targetIndex < availableDaysCount ? targetIndex : 0;
        const targetDay = this.availableDays.nth(indexToClick);
         await targetDay.scrollIntoViewIfNeeded();
-        await targetDay.click();
+        await targetDay.click({ force: true });
     } else {
         throw new Error('No available days found in the calendar even after switching month.');
     }

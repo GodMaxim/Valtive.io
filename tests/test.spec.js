@@ -9,12 +9,13 @@ bookingScenarios.forEach((scenario) => {
         await page.waitForTimeout(2000)
 
         await page.goto('https://valtive.io/contact-valtive/', { 
-            waitUntil: 'commit', 
-            timeout: 30000 
+            waitUntil: 'domcontentloaded', 
+            timeout: 60000 
         });
 
         const iframeElement = page.locator('iframe[src*="calendly.com"]');
-        await iframeElement.waitFor({ state: 'visible', timeout: 25000 });
+        await iframeElement.waitFor({ state: 'attached', timeout: 30000 });
+        await iframeElement.waitFor({ state: 'visible', timeout: 15000 });
        
         await contactUsPage.selectAvailableDay()
         await expect(contactUsPage.nextBtn).toBeEnabled()
