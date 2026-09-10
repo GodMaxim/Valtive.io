@@ -1,12 +1,13 @@
 import { test, expect } from '../fixtures.js'
 import { qase } from 'playwright-qase-reporter'
 import { bookingScenarios } from '../utils/bookingData.js'
+import { HomePage } from '../page/HomePage.js'
 
 bookingScenarios.forEach((scenario) => {
 
-    test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage }) => {
+    test(qase(scenario.qaseId, `Booking test scenario #${scenario.id}`), async ({ page, bookingPage, contactUsPage, homePage }) => {
         await page.waitForTimeout(4000)
-        await page.goto('https://valtive.io/contact-valtive/', { waitUntil: 'domcontentloaded' })
+        await homePage.goToContactUsPage()
 
         const iframeElement = page.locator('iframe[src*="calendly.com"]');
         await iframeElement.waitFor({ state: 'visible', timeout: 20000 });

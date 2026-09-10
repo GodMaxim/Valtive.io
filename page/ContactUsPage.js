@@ -18,9 +18,8 @@ export class ContactUsPage{
     }
 
    async selectAvailableDay(targetIndex = 0) {
-    const iframeElement = this.page.locator('iframe[src*="calendly.com"]');
-    await iframeElement.waitFor({ state: 'visible', timeout: 30000 })
-    await this.page.waitForTimeout(1000);
+    await this.page.locator('iframe[src*="calendly.com"]').waitFor({ state: 'visible', timeout: 30000 });
+    await this.page.waitForTimeout(1000)
     
     try {
         await this.availableDays.first().waitFor({ state: 'visible', timeout: 20000 });
